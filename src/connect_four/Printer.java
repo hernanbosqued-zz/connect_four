@@ -11,8 +11,9 @@ class Printer{
     }
 
     void print(){
+        board.chips.stream().filter( o -> o.column == 1);
         for( int i=board.rowCount-1; i >= 0; i --){
-            printRow(board.getRow(i));
+//            printRow(board.getRow(i));
         }
     }
 
