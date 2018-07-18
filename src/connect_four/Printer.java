@@ -1,26 +1,27 @@
 package connect_four;
 
-import java.util.List;
-
-class Printer{
+class Printer {
 
     private Board board;
 
-    Printer(Board board){
+    Printer(Board board) {
         this.board = board;
     }
 
-    void print(){
-        board.chips.stream().filter( o -> o.column == 1);
-        for( int i=board.rowCount-1; i >= 0; i --){
-//            printRow(board.getRow(i));
+    void print() {
+        for (int row = board.rows - 1; row >= 0; row--) {
+            for (int column = 0; column < board.columns; column++) {
+                print(board.board[row][column].getShape());
+            }
+            printNewRow();
         }
     }
 
-    private void printRow(List<Chip> items) {
-        for(Chip item : items) {
-            System.out.print(item.getShape() + " ");
-        }
+    private void print(String shape) {
+        System.out.print(shape + " ");
+    }
+
+    private void printNewRow() {
         System.out.print('\n');
     }
 }

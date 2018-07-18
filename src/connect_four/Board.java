@@ -1,20 +1,26 @@
 package connect_four;
 
-import java.util.ArrayList;
-import java.util.List;
 
 class Board {
-    int rowCount;
-    int columnCount;
-    List<Chip> chips;
+    final int rows;
+    final int columns;
+    private int[] columnIndex;
+    Chip[][] board;
 
     Board(int rows, int columns) {
-        this.rowCount = rows;
-        this.columnCount = columns;
-        chips = new ArrayList<>();
+        this.rows = rows;
+        this.columns = columns;
+        this.columnIndex = new int[columns];
+        this.board = new Chip[rows][columns];
+
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                board[row][column] = new NoChip();
+            }
+        }
     }
 
     void putChip(Chip chip, int column) {
-        chips.add(chip.inColumn(column));
+        board[columnIndex[column]++][column] = chip;
     }
 }
