@@ -1,11 +1,19 @@
 package connect_four;
 
-import connect_four.board.Board;
-
 public class ConnectFour {
 
     public static void main(String[] args) {
-        Board board = new Board(7,7);
-        board.print();
+        Board board = new Board(6,7);
+
+        board.putChip(new ChipYellow(),1);
+        board.putChip(new ChipYellow(),1);
+        board.putChip(new ChipBlue(),2);
+        board.putChip(new ChipBlue(),2);
+        board.putChip(new ChipBlue(),1);
+        board.putChip(new ChipYellow(),2);
+        board.putChip(new ChipYellow(),6);
+
+        Printer printer = new Printer(board);
+        printer.print();
     }
 }
