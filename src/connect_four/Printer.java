@@ -1,6 +1,17 @@
 package connect_four;
 
+import java.util.Scanner;
+
 class Printer {
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_RESET = "\u001B[0m";
+
+    private Scanner scanner;
+
+    Printer() {
+        scanner = new Scanner(System.in);
+    }
+
     void printBoard(Board board) {
         printNewRow();
 
@@ -20,8 +31,29 @@ class Printer {
         System.out.print('\n');
     }
 
-    public void printTurn(Turn turn) {
+    void printTurn(Turn turn) {
         printNewRow();
         System.out.print("Turno de " + turn.getName() + ": ");
+    }
+
+    void clearScreen() {
+        System.out.print("\033[H\033[2J");
+    }
+
+    int getInput(int max) throws BadInputException {
+        String input = scanner.nextLine();
+        try {
+            int numericInput = Character.getNumericValue(input.getBytes()[0]);
+            if (numericInput <= max) {
+                return numericInput;
+            } else throw new BadInputException();
+        } catch (Exception err) {
+            throw new BadInputException();
+        }
+    }
+
+    void printInputErrorMessage() {
+        System.out.print(ANSI_RED + "Error de ingreso. Pulse ENTER para volver a intentar." + ANSI_RESET);
+        scanner.nextLine();
     }
 }

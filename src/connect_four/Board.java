@@ -20,7 +20,8 @@ class Board {
         }
     }
 
-    void putChip(Chip chip, int column) {
-        board[columnIndex[column]++][column] = chip;
+    int putChip(Chip chip, int column) {
+        board[columnIndex[column]][column] = chip;
+        return columnIndex[column]++;
     }
 }

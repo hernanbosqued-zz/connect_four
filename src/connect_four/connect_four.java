@@ -1,31 +1,36 @@
 package connect_four;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 public class connect_four {
+        private static int ROWS = 6;
+        private static int COLUMNS = 7;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         Player player1 = new Player("Hernan", new ChipYellow());
         Player player2 = new Player("Emma", new ChipBlue());
-        Board board = new Board(6, 7);
+        Board board = new Board(ROWS, COLUMNS);
         Game game = new Game(board, player1, player2);
         Printer printer = new Printer();
 
         while (!game.hasWinner()) {
-            System.out.print("\033[H\033[2J");
+            printer.clearScreen();
 
             printer.printBoard(board);
 
             Turn turn = game.getTurn();
             printer.printTurn(turn);
 
-            Scanner s = new Scanner(System.in);
-            String input = s.nextLine();
-            turn.move(Character.getNumericValue(input.getBytes()[0]));
+            try {
+                int columnSelected = printer.getInput(COLUMNS);
 
-            game.endTurn(turn);
+                turn.make(columnSelected);
+
+                game.move(turn);
+                game.checkForWinner(turn, board);
+                game.nextTurn();
+            } catch (BadInputException exception) {
+                printer.printInputErrorMessage();
+            }
         }
     }
 }
