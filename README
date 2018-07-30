@@ -1,4 +1,11 @@
-Hacer un .JAR ejecutable
+Hacer un .JAR 
+-------------
+rm -rf bin 
+javac src/connect_four/*.java -d bin
+jar cvfm aaa.jar ./src/META-INF/MANIFEST.MF -C ./bin/ .
+java -jar aaa.jar
+
+Hacer al .JAR ejecutable
 ------------------------
 
 1) crear archivo stub.sh
@@ -14,3 +21,6 @@ exec "$java" $java_args -jar $MYSELF "$@"
 exit 1
 
 2)cat stub.sh PROJECT.jar > PROJECT.run && chmod +x PROJECT.run
+
+
+
