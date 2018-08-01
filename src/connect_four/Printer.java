@@ -56,4 +56,8 @@ class Printer {
         System.out.print(ANSI_RED + "Error de ingreso. Pulse ENTER para volver a intentar." + ANSI_RESET);
         scanner.nextLine();
     }
+    void printFullColumnErrorMessage() {
+        System.out.print(ANSI_RED + "Columna llena, intente en otra." + ANSI_RESET);
+        scanner.nextLine();
+    }
 }
