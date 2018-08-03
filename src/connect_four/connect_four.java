@@ -11,30 +11,35 @@ public class connect_four {
 
         Board board = new Board(ROWS, COLUMNS);
         Game game = new Game(board, player1, player2);
-
+        Turn turn;
         Printer printer = new Printer();
+        printer.printBoard(board);
 
-        while (!game.hasWinner()) {
-            printer.clearScreen();
+        do {
+            game.nextTurn();
 
-            printer.printBoard(board);
-
-            Turn turn = game.getTurn();
+            turn = game.getTurn();
             printer.printTurn(turn);
 
-            try {
+            try
+            {
                 int columnSelected = printer.getInput(COLUMNS);
-
                 turn.make(columnSelected);
-
                 game.move(turn);
-                game.checkForWinner(turn, board);
-                game.nextTurn();
-            } catch (BadInputException exception) {
-                printer.printInputErrorMessage();
-            } catch (IndexOutOfBoundsException exception) {
-                printer.printFullColumnErrorMessage();
             }
-        }
+            catch (BadInputException exception)
+            {
+                printer.printInputErrorMessage();
+                game.repeatTurn();
+            }
+            catch (IndexOutOfBoundsException exception)
+            {
+                printer.printFullColumnErrorMessage();
+                game.repeatTurn();
+            }
+            printer.printBoard(board);
+        } while (!game.hasWinner(turn, board));
+
+        printer.printWinner(game.getTurn().player);
     }
 }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 class Printer {
     private static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     private static final String ANSI_RESET = "\u001B[0m";
 
     private Scanner scanner;
@@ -13,6 +14,7 @@ class Printer {
     }
 
     void printBoard(Board board) {
+        clearScreen();
         printNewRow();
 
         for (int row = board.rows - 1; row >= 0; row--) {
@@ -44,7 +46,7 @@ class Printer {
         String input = scanner.nextLine();
         try {
             int numericInput = Character.getNumericValue(input.getBytes()[0]);
-            if (numericInput <= max) {
+            if (numericInput > 0 && numericInput <= max) {
                 return numericInput;
             } else throw new BadInputException();
         } catch (Exception err) {
@@ -53,11 +55,19 @@ class Printer {
     }
 
     void printInputErrorMessage() {
+        printNewRow();
         System.out.print(ANSI_RED + "Error de ingreso. Pulse ENTER para volver a intentar." + ANSI_RESET);
         scanner.nextLine();
     }
     void printFullColumnErrorMessage() {
+        printNewRow();
         System.out.print(ANSI_RED + "Columna llena, intente en otra." + ANSI_RESET);
+        scanner.nextLine();
+    }
+
+    void printWinner(Player player) {
+        printNewRow();
+        System.out.print(ANSI_GREEN + player.name.toUpperCase() + " ES EL GANADOR! FELICITACIONES!" + ANSI_RESET);
         scanner.nextLine();
     }
 }

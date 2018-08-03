@@ -1,5 +1,7 @@
 .idea/
 connect_four.iml
+connect_four.jar
+connect_four.run
 out/
 bin/
 
