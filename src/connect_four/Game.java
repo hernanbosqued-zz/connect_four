@@ -1,6 +1,6 @@
 package connect_four;
 
-import static connect_four.Game.CHECK_OPTIONS.*;
+import static connect_four.Game.CHECK.*;
 
 class Game {
     private Board board;
@@ -11,7 +11,7 @@ class Game {
     private boolean repeatTurn;
 
     enum DIRECTION {
-        FORDWARD(1),
+        FORWARD(1),
         BACKWARD(-1);
 
         private int direction;
@@ -21,7 +21,7 @@ class Game {
         }
     }
 
-    enum CHECK_OPTIONS {
+    enum CHECK {
         HORIZONAL(0, 1),
         VERTICAL(1, 0),
         LTORDIAG(1, 1),
@@ -30,7 +30,7 @@ class Game {
         public int x;
         public int y;
 
-        CHECK_OPTIONS(int x, int y) {
+        CHECK(int x, int y) {
             this.x = x;
             this.y = y;
         }
@@ -66,9 +66,8 @@ class Game {
         return countRow == WIN_CONDITION || countColumn == WIN_CONDITION || countLtoR == WIN_CONDITION || countRtoL == WIN_CONDITION;
     }
 
-    private int check(DIRECTION direction, CHECK_OPTIONS checkOptions, Turn turn, Board board) {
+    private int check(DIRECTION direction, connect_four.Game.CHECK checkOptions, Turn turn, Board board) {
         int count = 0;
-
         for (int indexRow = turn.row + direction.direction * checkOptions.x, indexColumn = turn.column + direction.direction * checkOptions.y;
              indexRow >= 0 && indexRow < board.rows && indexColumn >= 0 && indexColumn < board.columns;
              indexRow = indexRow + direction.direction * checkOptions.x, indexColumn = indexColumn + direction.direction * checkOptions.y) {
@@ -80,9 +79,8 @@ class Game {
         return count;
     }
 
-    private int check(CHECK_OPTIONS checkOptions, Turn turn, Board board) {
-        int count = 0;
-        count += check(DIRECTION.FORDWARD, checkOptions, turn, board);
+    private int check(connect_four.Game.CHECK checkOptions, Turn turn, Board board) {
+        int count = check(DIRECTION.FORWARD, checkOptions, turn, board);
         count += check(DIRECTION.BACKWARD, checkOptions, turn, board);
         return count;
     }
