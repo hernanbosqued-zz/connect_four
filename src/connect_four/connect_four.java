@@ -6,8 +6,8 @@ public class connect_four {
 
     public static void main(String[] args) {
 
-        Player player1 = new Player("Hernan", new ChipYellow());
-        Player player2 = new Player("Emma", new ChipBlue());
+        Player player1 = new Player("Hernan", new ChipBlue());
+        Player player2 = new Player("Emma", new ChipYellow());
 
         Board board = new Board(ROWS, COLUMNS);
         Game game = new Game(board, player1, player2);
