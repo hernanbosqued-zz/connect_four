@@ -2,5 +2,7 @@ package connect_four;
 
 
 interface Visitor {
-    void visit(Chip chip);
+    boolean accept(ChipYellow chip);
+    boolean accept(ChipBlue chip);
+    boolean accept(Chip chip);
 }

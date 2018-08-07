@@ -63,23 +63,26 @@ class Game {
         int countLtoR = check(LTORDIAG, turn, board);
         int countRtoL = check(RTOLDIAG, turn, board);
 
-        return countRow == WIN_CONDITION || countColumn == WIN_CONDITION || countLtoR == WIN_CONDITION || countRtoL == WIN_CONDITION;
+        return countRow >= WIN_CONDITION || countColumn >= WIN_CONDITION || countLtoR >= WIN_CONDITION || countRtoL >= WIN_CONDITION;
     }
 
-    private int check(DIRECTION direction, connect_four.Game.CHECK checkOptions, Turn turn, Board board) {
+    private int check(DIRECTION direction, CHECK checkOptions, Turn turn, Board board) {
         int count = 0;
+
         for (int indexRow = turn.row + direction.direction * checkOptions.x, indexColumn = turn.column + direction.direction * checkOptions.y;
-             indexRow >= 0 && indexRow < board.rows && indexColumn >= 0 && indexColumn < board.columns;
+                    indexRow >= 0 &&
+                    indexRow < board.rows &&
+                    indexColumn >= 0 &&
+                    indexColumn < board.columns &&
+                    board.board[indexRow][indexColumn].visit(turn.player.chip);
              indexRow = indexRow + direction.direction * checkOptions.x, indexColumn = indexColumn + direction.direction * checkOptions.y) {
 
-            if (board.board[indexRow][indexColumn].getClass() == turn.player.chip.getClass()) {
-                count++;
-            } else break;
+            count++;
         }
         return count;
     }
 
-    private int check(connect_four.Game.CHECK checkOptions, Turn turn, Board board) {
+    private int check(CHECK checkOptions, Turn turn, Board board) {
         int count = check(DIRECTION.FORWARD, checkOptions, turn, board);
         count += check(DIRECTION.BACKWARD, checkOptions, turn, board);
         return count;

@@ -6,4 +6,9 @@ public class NoChip extends Chip {
     public String getShape() {
         return "○";
     }
+
+    @Override
+    public boolean visit(Visitor visitor) {
+        return visitor.accept(this);
+    }
 }
